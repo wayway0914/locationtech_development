@@ -8,11 +8,6 @@ class FacilitylistSpider(CrawlSpider):
 	#Naming Rule: "scrapingcompanyname_brandname"
 	name = "navitime_anonymous"
 
-	# #パッチ間で永続的な状態を維持
-	# self.logger.info(self.state.get("state_key1"))
-	# self.state["state_key1"] = {"key":"value"}
-	# self.state["state_key2"] = 0
-
 	#Allowd Domains: should be set so as not to go outside target company/brand
 	allowed_domains = ["navitime.co.jp"]
 
@@ -22,15 +17,15 @@ class FacilitylistSpider(CrawlSpider):
 	#rules to follow links:
 	rules = (
 		Rule(LinkExtractor(
-			allow=r"/\w+category/\w+/$",
+			allow=r"\w+/category/\w+/$",
 			restrict_xpaths = "//*[@id='left_pane']",
+			unique = True,)),
+		Rule(LinkExtractor(
+			allow=r"\w+/category/\w+/\?page=\d*$",
+			restrict_xpaths = "//*[@id='left_pane']/ul[1]",
 			unique = True,
-		), callback="page_parse"),
+		), callback="page_parse", follow = True),
 	)
 
 	def page_parse(self, response):
 		yield Page.from_response(response)
-
-		# next_page = response.xpath("//*[@id='left_pane']/ul[1]/li[8]").get()
-		# if next_page is not None:
-		# 	yield response.follow(next_page, callback = self.page_parse)
