@@ -23,10 +23,10 @@ class StorelistSpider(CrawlSpider):
 
 	def start_requests(self):
 		#SKIP-SETTINGS: Starting Position
-		nStartCategory = 107
-		nStartPrefecture = 34
-		nStartCity = 3
-		nStartPage = 4
+		nStartCategory = 116
+		nStartPrefecture = 46
+		nStartCity = 1
+		nStartPage = 16
 
 		#Target Category
 		with open('tabelogCategoryList.txt') as f1:

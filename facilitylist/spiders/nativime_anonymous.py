@@ -22,9 +22,9 @@ class FacilitylistSpider(CrawlSpider):
 
 	def start_requests(self):
 		#SKIP-SETTINGS : Starting Position
-		nStartCategory = 206
+		nStartCategory = 230
 		nLastCategory = 321
-		nStartPrefecture = 40
+		nStartPrefecture = 46
 		nStartCity = 0
 		nStartTown = 0
 		nStartPage = 0

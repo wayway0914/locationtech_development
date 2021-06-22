@@ -1,4 +1,5 @@
 /.scrapy
 /local_experiment
 /facilitylist/spiders/crawls/
-/my_venv
+/facilitylist/spiders/navitime_crawling.log
+/facilitylist/spiders/tabelog_crawling.log
