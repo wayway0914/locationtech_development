@@ -1,3 +1,4 @@
 /.scrapy
 /local_experiment
 /facilitylist/spiders/crawls/
+/my_venv
