@@ -22,16 +22,20 @@ class FacilitylistSpider(CrawlSpider):
 
 	def start_requests(self):
 		#SKIP-SETTINGS : Starting Position
-		nStartCategory = 11
-		nStartPrefecture = 14
-		nStartCity = 44
-		nStartTown = 1
-		nStartPage = 1
+		nStartCategory = 206
+		nLastCategory = 321
+		nStartPrefecture = 40
+		nStartCity = 0
+		nStartTown = 0
+		nStartPage = 0
 
 		with open("navitimeCategoryList.txt") as f:
 			self.navitime_categoryCount = 0
-			for q in f:
+			for q in f.readlines()[0:nLastCategory]:
 				self.navitime_categoryCount += 1
+				self.navitime_prefectureCount = 0
+				self.navitime_cityCount = 0
+				self.navitime_townCount = 0
 
 				#SKIP-CONDITIONS
 				if self.navitime_categoryCount < nStartCategory:
@@ -50,12 +54,10 @@ class FacilitylistSpider(CrawlSpider):
 				except AttributeError:
 					continue
 
-				self.navitime_prefectureCount = 0
-				self.navitime_cityCount = 0
-				self.navitime_townCount = 0
 				for url_cpObject in urlList_cpObject:
 					self.navitime_prefectureCount += 1
-
+					self.navitime_cityCount = 0
+					self.navitime_townCount = 0
 					#SKIP-CONDITIONS
 					if self.navitime_prefectureCount < nStartPrefecture:
 						continue
@@ -102,10 +104,9 @@ class FacilitylistSpider(CrawlSpider):
 						except AttributeError:
 							continue
 
-						self.navitime_cityCount = 0
-						self.navitime_townCount = 0
 						for url_cpcObject in urlList_cpcObject:
 							self.navitime_cityCount += 1
+							self.navitime_townCount = 0
 
 							#SKIP-CONDITIONS
 							if self.navitime_cityCount < nStartCity:
@@ -137,7 +138,7 @@ class FacilitylistSpider(CrawlSpider):
 
 									if nextPageButton is not None:
 										self.navitime_pageCount += 1
-										url_cp = url_cpObject.get("href") + "?page=" + str(self.navitime_pageCount)
+										url_cpc = url_cpcObject.get("href") + "?page=" + str(self.navitime_pageCount)
 									else:
 										break
 
@@ -153,7 +154,6 @@ class FacilitylistSpider(CrawlSpider):
 								except AttributeError:
 									continue
 
-								self.navitime_townCount = 0
 								for url_cpctObject in urlList_cpctObject:
 									self.navitime_townCount += 1
 
@@ -183,7 +183,7 @@ class FacilitylistSpider(CrawlSpider):
 
 										if nextPageButton is not None:
 											self.navitime_pageCount += 1
-											url_cp = url_cpObject.get("href") + "?page=" + str(self.navitime_pageCount)
+											url_cpct = url_cpctObject.get("href") + "?page=" + str(self.navitime_pageCount)
 										else:
 											break
 
